@@ -4,7 +4,7 @@ module.exports = {
   ],
 
   baseUrl: process.env.NODE_ENV === 'production'
-    ? 'https://madko.id/'
+    ? 'https://covid19.madko.id/'
     : '/',
 
   productionSourceMap: false,
