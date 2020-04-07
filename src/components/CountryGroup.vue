@@ -109,9 +109,11 @@
 
 <script>
 import { Services } from '../services/APIServiceCovid'
+import { GlobalScript } from '../Script/GlobalScript'
 const linechart = () => import('./DetailChart')
 
 const api = new Services()
+const format = new GlobalScript()
 
 export default {
   components: {
@@ -130,6 +132,7 @@ export default {
     model () {
       this.propData = this.covCountries[this.model].country
       this.selectData = this.covCountries[this.model]
+      this.selectedModel(this.selectData)
     }
   },
 
@@ -140,6 +143,10 @@ export default {
   methods: {
     getAll () {
       api.getDataAllCountry().then(succ => {
+        for (var a = 0; a < succ.length; a++) {
+          succ[a].cases = format.numberFormatting(succ[a].cases)
+          succ[a].todayCases = format.numberFormatting(succ[a].todayCases)
+        }
         this.covCountries = succ
       })
     },
@@ -149,6 +156,14 @@ export default {
         .then(succ => {
           this.propData = succ
         })
+    },
+    selectedModel (x) {
+      this.selectData.cases = format.numberFormatting(x.cases)
+      this.selectData.todayCases = format.numberFormatting(x.todayCases)
+      this.selectData.deaths = format.numberFormatting(x.deaths)
+      this.selectData.todayDeaths = format.numberFormatting(x.todayDeaths)
+      this.selectData.recovered = format.numberFormatting(x.recovered)
+      this.selectData.active = format.numberFormatting(x.active)
     }
   }
 }

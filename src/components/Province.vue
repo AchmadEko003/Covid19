@@ -41,8 +41,10 @@
 
 <script>
 import { Services } from '../services/APIServiceCovid'
+import { GlobalScript } from '../Script/GlobalScript'
 
 const api = new Services()
+const format = new GlobalScript()
 
 export default {
   data () {
@@ -70,6 +72,11 @@ export default {
   methods: {
     getAll () {
       api.getIndonesiaProvince().then(succ => {
+        for (var a = 0; a < succ.length; a++) {
+          succ[a].attributes.Kasus_Posi = format.numberFormatting(succ[a].attributes.Kasus_Posi)
+          succ[a].attributes.Kasus_Meni = format.numberFormatting(succ[a].attributes.Kasus_Meni)
+          succ[a].attributes.Kasus_Semb = format.numberFormatting(succ[a].attributes.Kasus_Semb)
+        }
         this.covid = succ
         this.isLoad = false
       }).catch(this.isLoad = false)

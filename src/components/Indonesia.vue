@@ -80,10 +80,13 @@
 
 <script>
 import { Services } from '../services/APIServiceCovid'
+import { GlobalScript } from '../Script/GlobalScript'
+
 const linechart = () => import('./DetailChart')
 const province = () => import('./Province')
 
 const api = new Services()
+const format = new GlobalScript()
 
 export default {
   components: {
@@ -109,6 +112,13 @@ export default {
   methods: {
     getAll () {
       api.getDataCountry('indonesia').then(succ => {
+        succ.cases = format.numberFormatting(succ.cases)
+        succ.todayCases = format.numberFormatting(succ.todayCases)
+        succ.deaths = format.numberFormatting(succ.deaths)
+        succ.todayDeaths = format.numberFormatting(succ.todayDeaths)
+        succ.recovered = format.numberFormatting(succ.recovered)
+        succ.active = format.numberFormatting(succ.active)
+
         this.covCountries = succ
         this.propData = 'indonesia'
       })

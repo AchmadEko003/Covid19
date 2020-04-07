@@ -60,32 +60,6 @@ export default {
   },
 
   methods: {
-    // getApi () {
-    //   apiService.getDataAllCountry().then(succ => {
-    //     var data = {}
-    //     let content = ''
-    //     for (var a = 0; a < succ.length; a++) {
-    //       if (succ[a].province != null) {
-    //         content = succ[a].country + ' (' + succ[a].province + '): ' + succ[a].cases
-    //       } else {
-    //         content = succ[a].country + ': ' + succ[a].cases
-    //       }
-
-    //       var latlong = latLng(succ[a].countryInfo.lat, succ[a].countryInfo.long)
-
-    //       if (succ[a].country === 'USA') {
-    //         latlong = latLng(40.246517, -101.4901277)
-    //       }
-
-    //       data = {
-    //         center: latlong,
-    //         radius: 1000,
-    //         content: content
-    //       }
-    //       this.covData.push(data)
-    //     }
-    //   })
-    // },
     getApi () {
       apiService.getDataMap().then(succ => {
         var data = {}
