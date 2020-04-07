@@ -76,8 +76,10 @@
 
 <script>
 import { Services } from '../services/APIServiceCovid'
+import { GlobalScript } from '../Script/GlobalScript'
 
 const api = new Services()
+const format = new GlobalScript()
 
 export default {
   name: 'sub-header',
@@ -111,9 +113,12 @@ export default {
     },
     getAll () {
       api.getDataGlobal().then(succ => {
-        this.covData = succ
         var active = succ.cases - (succ.deaths + succ.recovered)
-        this.activeCoc = active
+        succ.cases = format.numberFormatting(succ.cases)
+        succ.deaths = format.numberFormatting(succ.deaths)
+        succ.recovered = format.numberFormatting(succ.recovered)
+        this.covData = succ
+        this.activeCoc = format.numberFormatting(active)
         this.isLoad = false
       })
     }

@@ -3,9 +3,9 @@ module.exports = {
     'vuetify'
   ],
 
-  baseUrl: process.env.NODE_ENV === 'production'
-    ? 'https://covid19.madko.id/'
-    : '/',
+  // baseUrl: process.env.NODE_ENV === 'production'
+  //   ? 'https://covid19.madko.id/'
+  //   : '/',
 
   productionSourceMap: false,
 

@@ -40,8 +40,10 @@
 
 <script>
 import { Services } from '../services/APIServiceCovid'
+import { GlobalScript } from '../Script/GlobalScript'
 
 const api = new Services()
+const format = new GlobalScript()
 
 export default {
   data () {
@@ -60,7 +62,8 @@ export default {
         { text: 'Meninggal Harian', value: 'todayDeaths' },
         { text: 'Sembuh', value: 'recovered' },
         { text: 'Aktif', value: 'active' },
-        { text: 'Kritis', value: 'critical' }
+        { text: 'Kritis', value: 'critical' },
+        { text: 'Total Tes', value: 'tests' }
       ],
       covid: []
     }
@@ -74,28 +77,48 @@ export default {
     getAll () {
       api.getDataAllCountry().then(succ => {
         for (var a = 0; a < succ.length; a++) {
+          succ[a].cases = format.numberFormatting(succ[a].cases)
+
           if (succ[a].todayCases === 0) {
             succ[a].todayCases = ''
+          } else {
+            succ[a].todayCases = format.numberFormatting(succ[a].todayCases)
           }
 
           if (succ[a].deaths === 0) {
             succ[a].deaths = ''
+          } else {
+            succ[a].deaths = format.numberFormatting(succ[a].deaths)
           }
 
           if (succ[a].todayDeaths === 0) {
             succ[a].todayDeaths = ''
+          } else {
+            succ[a].todayDeaths = format.numberFormatting(succ[a].todayDeaths)
           }
 
           if (succ[a].recovered === 0) {
             succ[a].recovered = ''
+          } else {
+            succ[a].recovered = format.numberFormatting(succ[a].recovered)
           }
 
           if (succ[a].active === 0) {
             succ[a].active = ''
+          } else {
+            succ[a].active = format.numberFormatting(succ[a].active)
           }
 
           if (succ[a].critical === 0) {
             succ[a].critical = ''
+          } else {
+            succ[a].critical = format.numberFormatting(succ[a].critical)
+          }
+
+          if (succ[a].tests === 0) {
+            succ[a].tests = ''
+          } else {
+            succ[a].tests = format.numberFormatting(succ[a].tests)
           }
         }
         this.covid = succ
